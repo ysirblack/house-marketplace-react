@@ -1,13 +1,9 @@
-import React from "react";
-
 function Explore() {
   return (
-    <>
-      <div>
-        <h1>Explore</h1>
-      </div>
-    </>
-  );
+    <div>
+      <h1>Explore</h1>
+    </div>
+  )
 }
 
-export default Explore;
+export default Explore
