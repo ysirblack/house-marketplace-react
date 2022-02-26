@@ -36,7 +36,7 @@ function Category() {
       } catch (error) {
         toast.error("Could not fetch listings");
       }
-    };
+    }
 
     fetchListings();
   }, [params.categoryName]);
