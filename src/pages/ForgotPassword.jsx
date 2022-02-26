@@ -9,17 +9,17 @@ function ForgotPassword() {
 
   const onChange = (e) => setEmail(e.target.value);
 
- const onSubmit = async (e) => {
- e.preventDefault();
+  const onSubmit = async (e) => {
+    e.preventDefault();
 
- try {
-   const auth = getAuth();
-   await sendPasswordResetEmail(auth,email);
-   toast.success("email is sent");
- } catch (error) {
-   toast.error("couldn't send reset email");
- }
- }
+    try {
+      const auth = getAuth();
+      await sendPasswordResetEmail(auth, email);
+      toast.success("email is sent");
+    } catch (error) {
+      toast.error("couldn't send reset email");
+    }
+  };
 
   return (
     <div className="pageContainer">
@@ -33,7 +33,7 @@ function ForgotPassword() {
           className="emailInput" 
           placeholder="Email" 
           id="email" 
-          value={email}
+          value={email} 
           onChange={onChange} />
 
           <Link className="forgotPasswordLink" to="/sign-in">
@@ -41,9 +41,9 @@ function ForgotPassword() {
           </Link>
           <div className="singInBar">
             <div className="signIntext">Send Reset Link</div>
-            <div className="button signInButton">
+            <button className="signInButton">
               <ArrowRightIcon fill="#ffffff" width="34px" height="34px" />
-            </div>
+            </button>
           </div>
         </form>
       </main>
