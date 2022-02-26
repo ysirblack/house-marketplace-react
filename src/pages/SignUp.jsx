@@ -9,6 +9,7 @@ import visibilityIcon from '../assets/svg/visibilityIcon.svg'
 
 function SignUp() {
   const [showPassword, setShowPassword] = useState(false)
+  console.log("second rendered");
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -19,6 +20,8 @@ function SignUp() {
   const navigate = useNavigate()
 
   const onChange = (e) => {
+    console.log("==============");
+    console.log("first rendered");
     setFormData((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
