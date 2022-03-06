@@ -1,16 +1,19 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify';
-import { getAuth, createUserWithEmailAndPassword , updateProfile} from "firebase/auth";
-import { db } from "../firebase.config";
-import {setDoc, doc, serverTimestamp} from "firebase/firestore";
+import { toast } from 'react-toastify'
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from 'firebase/auth'
+import { setDoc, doc, serverTimestamp } from 'firebase/firestore'
+import { db } from '../firebase.config'
+import OAuth from '../components/OAuth'
 import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRightIcon.svg'
 import visibilityIcon from '../assets/svg/visibilityIcon.svg'
-import OAuth from '../components/OAuth';
 
 function SignUp() {
   const [showPassword, setShowPassword] = useState(false)
-  console.log("second rendered");
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -21,8 +24,6 @@ function SignUp() {
   const navigate = useNavigate()
 
   const onChange = (e) => {
-    console.log("==============");
-    console.log("first rendered");
     setFormData((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
@@ -30,28 +31,32 @@ function SignUp() {
   }
 
   const onSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
+
     try {
       const auth = getAuth()
-      const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
 
-      const user = userCredentials.user
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      )
+
+      const user = userCredential.user
 
       updateProfile(auth.currentUser, {
         displayName: name,
       })
-      
-      const formDataCopy = {...formData}
+
+      const formDataCopy = { ...formData }
       delete formDataCopy.password
-      formDataCopy.timestamp = serverTimestamp();
+      formDataCopy.timestamp = serverTimestamp()
 
-      await setDoc(doc(db, "users", user.uid),formDataCopy)//it creates a db which name is users
+      await setDoc(doc(db, 'users', user.uid), formDataCopy)
 
-
-      navigate("/");
-
-    }catch (error){
-      toast.error("Something went wrong, try again please!");
+      navigate('/')
+    } catch (error) {
+      toast.error('Something went wrong with registration')
     }
   }
 
@@ -62,7 +67,7 @@ function SignUp() {
           <p className='pageHeader'>Welcome Back!</p>
         </header>
 
-        <form onSubmit = {onSubmit} >
+        <form onSubmit={onSubmit}>
           <input
             type='text'
             className='nameInput'
